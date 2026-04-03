@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import { NewAppScreen } from '@react-native/new-app-screen';
 import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import {
@@ -23,11 +16,6 @@ function App() {
     </SafeAreaProvider>
   );
 }
-//длуатмшу
-//rtejlnbvjrwnjv
-
-//f/vkweojvnowlr
-//lrfkmnklvrw
 
 function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
