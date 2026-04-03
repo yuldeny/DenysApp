@@ -23,7 +23,7 @@ function App() {
     </SafeAreaProvider>
   );
 }
-//хуй
+//длуатмшу
 
 function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
