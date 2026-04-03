@@ -24,6 +24,10 @@ function App() {
   );
 }
 //длуатмшу
+//rtejlnbvjrwnjv
+
+//f/vkweojvnowlr
+//lrfkmnklvrw
 
 function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
