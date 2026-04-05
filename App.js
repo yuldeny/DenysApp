@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,9 +7,11 @@ import {
   StatusBar,
   View,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import { CardItem } from './src/components/CardItem';
-import { ScrollView } from 'react-native/types_generated/Libraries/Animated/AnimatedExports';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 const pizzaData = [
   {
     id: 1,
@@ -58,33 +61,54 @@ const pizzaData = [
     price: 185,
     image: 'https://www.iqpizza.com.ua/_next/image?url=https%3A%2F%2Fiq-pizza.eatery.club%2Fstorage%2Fiq-pizza%2Fproduct%2Ficon%2F47081%2Fconversions%2Ftext-optimized.jpg&w=256&q=75'
   }
-]
+];
 
 const App = () => {
+  const [search, setSearch] = useState('');
+
+  const filteredPizza = pizzaData.filter(pizza =>
+    pizza.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar backgroundColor="#FFF" barStyle={'dark-content'} />
       <View style={styles.container}>
         <Text style={styles.text}>Магазин Пиццы</Text>
         <Text style={styles.textDes}>Попробуй у нас, {'\n'}а не у конкурента!!!</Text>
-        
-        <TextInput
-           style={styles.input}
-           keyboardType = "numeric"
-           onChangeText={(event) => console.log(event)}
-           //value={text}
-        />
-        
-        <View style={styles.imgContainer}>
-            {pizzaData.map(( pizza, index) => (
-            <CardItem key={pizza.id} text={pizza.name} img={pizza.image} price={pizza.price}/>
-          ))}  
+
+        <View style={styles.inputContainer}>
+          <Icon name="search-outline" size={20} color="gray" />
+          <TextInput
+            style={styles.input}
+            onChangeText={(value) => setSearch(value)}
+            value={search}
+            placeholder="Поиск пиццы..."
+          />
         </View>
+
+        {search.length > 0 && (
+          <View style={styles.searchResults}>
+            {filteredPizza.map(pizza => (
+              <Text key={pizza.id} style={styles.searchItem}>
+                {pizza.name}
+              </Text>
+            ))}
+          </View>
+        )}
+
+        <ScrollView>
+          <View style={styles.imgContainer}>
+            {pizzaData.map((pizza) => (
+              <CardItem key={pizza.id} text={pizza.name} img={pizza.image} price={pizza.price}/>
+            ))}
+          </View>
+        </ScrollView>
       </View>
-    
-    <TouchableOpacity style={styles.orderBtn}>
-      <Text style={{textAlign: 'center', color: "#FFF", fontSize: 16, fontWeight:"500",}}>Создать заказ</Text>
-    </TouchableOpacity>
+
+      <TouchableOpacity style={styles.orderBtn}>
+        <Text style={{textAlign: 'center', color: "#FFF", fontSize: 16, fontWeight: "500"}}>Создать заказ</Text>
+      </TouchableOpacity>
 
     </SafeAreaView>
   );
@@ -112,29 +136,39 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
-  image: {
-    marginTop: 15,
-    width: "50%",
-    height: 120,
-    borderRadius: 4,
-  },
   orderBtn: {
-  position: "absolute",
-  bottom: 20,
-  left: 15,
-  right: 15,
-  paddingVertical: 16,
-  backgroundColor: "orange",
-  borderRadius: 8,
-},
-  input: {
+    position: "absolute",
+    bottom: 20,
+    left: 15,
+    right: 15,
+    paddingVertical: 16,
+    backgroundColor: "orange",
+    borderRadius: 8,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 15,
     paddingLeft: 15,
     height: 46,
-    margin: 12,
     borderWidth: 1,
-    padding: 10,
     borderColor: "orange",
+    borderRadius: 8,
+  },
+  input: {
+    flex: 1,
+    paddingLeft: 10,
+  },
+  searchResults: {
+    backgroundColor: "#f9f9f9",
+    borderRadius: 8,
+    padding: 8,
+    marginTop: 4,
+  },
+  searchItem: {
+    fontSize: 14,
+    paddingVertical: 4,
+    color: "#333",
   },
 });
 
