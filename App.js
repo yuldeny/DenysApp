@@ -107,7 +107,7 @@ const App = () => {
       </View>
 
       <TouchableOpacity style={styles.orderBtn}>
-        <Text style={{textAlign: 'center', color: "#FFF", fontSize: 16, fontWeight: "500"}}>Создать заказ</Text>
+        <Text style={styles.orderBtnText}>Создать заказ</Text>
       </TouchableOpacity>
 
     </SafeAreaView>
@@ -170,6 +170,12 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     color: "#333",
   },
+  orderBtnText: {
+  textAlign: 'center',
+  color: "#FFF",
+  fontSize: 16,
+  fontWeight: "500",
+},
 });
 
 export default App;
