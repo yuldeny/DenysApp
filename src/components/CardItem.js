@@ -1,27 +1,29 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { Image, Text, TouchableOpacity, View, Alert } from "react-native";
+import { CardStyles as styles } from '../../styles/CardStyles';
 
-export const CardItem = ({ text, img, price }) => {
+export const CardItem = ({ text, img, price, weight, description }) => {
   return (
-     <TouchableOpacity
-      onPress={() => Alert.alert("Пицца добавлена в корзину", text)}
-      style={styles.btn}
-    >
+    <View style={styles.card}>
       <Image style={styles.image} source={{ uri: img }} />
-      <Text>{text}</Text>
-      <Text>{price} ₴</Text>
-    </TouchableOpacity>
+      <View style={styles.info}>
+        <View style={styles.row}>
+          <Text style={styles.name}>{text}</Text>
+          <TouchableOpacity style={styles.heartBtn}>
+            <Text style={styles.heartText}>♡</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.description}>{description}</Text>
+        <View style={styles.weight}>
+          <Text style={styles.weightText}>{weight}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.price}>{price} ₴</Text>
+          <TouchableOpacity style={styles.plusBtn} onPress={() => Alert.alert("Піцу додано в кошик", text)}>
+            <Text style={styles.plusText}>+</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  btn: {
-    width: "50%",
-  },
-  image: {
-    marginTop: 15,
-    width: "100%",
-    height: 175,
-    borderRadius: 4,
-  },
-});
